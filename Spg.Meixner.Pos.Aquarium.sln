@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spg.Meixner.Pos.Aquarium.Angular", "Spg.Meixner.Pos.Aquarium.Angular\Spg.Meixner.Pos.Aquarium.Angular.csproj", "{7649F366-87D3-4040-9FDC-CE4981F5BAC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7649F366-87D3-4040-9FDC-CE4981F5BAC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7649F366-87D3-4040-9FDC-CE4981F5BAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7649F366-87D3-4040-9FDC-CE4981F5BAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7649F366-87D3-4040-9FDC-CE4981F5BAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
