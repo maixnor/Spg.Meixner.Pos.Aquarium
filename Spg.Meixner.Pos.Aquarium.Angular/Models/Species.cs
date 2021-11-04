@@ -2,5 +2,12 @@ using System;
 
 namespace Spg.Meixner.Pos.Aquarium.Angular.Models
 {
-    public record Species(Guid Id, Rank Rank, string Name, string LatinName);
+    public class Species
+    {
+
+        public Guid Id { get; init; }
+        public Rank Rank { get; init; }
+        public string Name { get; init; }
+        public string LatinName { get; init; }
+    }
 }
