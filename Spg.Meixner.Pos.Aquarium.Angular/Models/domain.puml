@@ -11,10 +11,6 @@ class Organism {
     color: string
     spaceCcm : int
 }
-class Mammal
-class Fish
-class Crustacean 
-class Plant
 class Prerequisites
 class Food
 class Tank {
@@ -32,7 +28,15 @@ enum Region {
     Deep Sea
     Lake
 }
+enum Rank {
+    None
+    Plant
+    Crustacean
+    Mammal
+    Fish
+}
 
+Species *-- Rank : is of rank
 Organism *-- Species : part of
 Organism *-- Region
 Organism *-up-* Organism : beneficial
@@ -41,11 +45,5 @@ Organism *--* Tank : is in
 Organism *--* Prerequisites : needs
 Organism *--* Food : eats
 Tank *-- Area : situated in
-
-Organism -up-|> Fish
-Organism -up-|> Mammal
-Organism -up-|> Crustacean
-Organism -up-|> Plant
-
 
 @enduml
