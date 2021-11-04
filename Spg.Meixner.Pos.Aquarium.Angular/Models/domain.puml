@@ -11,10 +11,16 @@ class Organism {
     color: string
     spaceCcm : int
 }
-class Prerequisites
-class Food
+class Prerequisites {
+    description: string
+}
+class Food {
+    name : string
+    isLive : bool
+}
 class Tank {
-    highlights : string
+    name : string
+    description : string
     capacityCcm : int
 }
 class Area {
