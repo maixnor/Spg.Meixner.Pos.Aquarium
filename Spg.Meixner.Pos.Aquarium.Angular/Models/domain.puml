@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Species {
+    name: string
+    latin: string
+}
+class Organism {
+    temperature: Range
+    color: string
+    spaceCcm : int
+}
+class Prerequisites {
+    description: string
+}
+class Food {
+    name : string
+    isLive : bool
+}
+class Tank {
+    name : string
+    description : string
+    capacityCcm : int
+}
+class Area {
+    name: string
+}
+
+enum Region {
+    Tropics
+    Arctic
+    Open Sea
+    Deep Sea
+    Lake
+}
+enum Rank {
+    None
+    Plant
+    Crustacean
+    Mammal
+    Fish
+}
+
+Species *-- Rank : is of rank
+Organism *-- Species : part of
+Organism *-- Region
+Organism *-up-* Organism : beneficial
+Organism *-right-* Organism : malevolent
+Organism *--* Tank : is in
+Organism *--* Prerequisites : needs
+Organism *--* Food : eats
+Tank *-- Area : situated in
+
+@enduml
