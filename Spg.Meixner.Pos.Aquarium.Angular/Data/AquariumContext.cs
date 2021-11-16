@@ -11,5 +11,8 @@ namespace Spg.Meixner.Pos.Aquarium.Angular.Data
         public DbSet<Prerequisite> Prerequisites { get; set; }
         public DbSet<Species> Species { get; set; }
         public DbSet<Tank> Tanks { get; set; }
+
+        public AquariumContext(DbContextOptions<AquariumContext> options) 
+            : base(options) { }
     }
 }
