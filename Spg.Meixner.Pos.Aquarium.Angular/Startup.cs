@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +28,7 @@ namespace Spg.Meixner.Pos.Aquarium.Angular
                 builder.UseNpgsql(Configuration.GetConnectionString("heroku-postgres")));
             
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("heroku-postgres")));
+                options.UseNpgsql(Configuration.GetConnectionString("heroku-postgres")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -70,6 +71,8 @@ namespace Spg.Meixner.Pos.Aquarium.Angular
 
             app.UseRouting();
 
+            app.SetupDatabases();
+
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
@@ -93,6 +96,27 @@ namespace Spg.Meixner.Pos.Aquarium.Angular
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+    }
+
+    public static class StartupExtensions
+    {
+        public static void SetupDatabases(this IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var aquariumContext = scope.ServiceProvider.GetRequiredService<AquariumContext>();
+                if (aquariumContext is null)
+                    throw new Exception("Wiring up of AquariumContext did not work properly.");
+
+                aquariumContext.Database.EnsureCreated();
+
+                var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                if (applicationDbContext is null)
+                    throw new Exception("Wiring up of ApplicationDbContext did not work properly.");
+
+                applicationDbContext.Database.EnsureCreated();
+            }
         }
     }
 }

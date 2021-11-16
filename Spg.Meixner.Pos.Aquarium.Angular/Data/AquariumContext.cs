@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Spg.Meixner.Pos.Aquarium.Angular.Migrations;
 using Spg.Meixner.Pos.Aquarium.Angular.Models;
 
 namespace Spg.Meixner.Pos.Aquarium.Angular.Data
