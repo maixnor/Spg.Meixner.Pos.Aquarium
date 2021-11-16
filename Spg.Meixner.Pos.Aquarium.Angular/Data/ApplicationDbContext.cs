@@ -1,12 +1,8 @@
 ﻿using Spg.Meixner.Pos.Aquarium.Angular.Models;
-using IdentityServer4.EntityFramework.Options;
+using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Spg.Meixner.Pos.Aquarium.Angular.Data
 {

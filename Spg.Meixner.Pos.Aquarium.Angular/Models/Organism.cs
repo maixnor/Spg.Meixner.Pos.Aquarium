@@ -12,7 +12,7 @@ namespace Spg.Meixner.Pos.Aquarium.Angular.Models
         public Species Species { get; init; }
         public Region Region { get; init; }
 
-        public IEnumerable<Prerequisites> Prerequisites;
+        public IEnumerable<Prerequisite> Prerequisites;
         public IEnumerable<Food> Foods;
         public IEnumerable<Tank> Tanks;
         public IEnumerable<Organism> Beneficial;
