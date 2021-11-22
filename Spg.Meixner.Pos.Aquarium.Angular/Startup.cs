@@ -1,16 +1,14 @@
+using System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
-using Spg.Meixner.Pos.Aquarium.Angular.Data;
-using Spg.Meixner.Pos.Aquarium.Angular.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Spg.Meixner.Pos.Aquarium.Angular.Data;
+using Spg.Meixner.Pos.Aquarium.Angular.Models;
 
 namespace Spg.Meixner.Pos.Aquarium.Angular
 {
@@ -26,9 +24,11 @@ namespace Spg.Meixner.Pos.Aquarium.Angular
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AquariumContext>(builder =>
+                builder.UseNpgsql(Configuration.GetConnectionString("heroku-postgres")));
+            
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("heroku-postgres")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -40,6 +40,7 @@ namespace Spg.Meixner.Pos.Aquarium.Angular
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+            
             services.AddControllersWithViews();
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory
@@ -70,6 +71,8 @@ namespace Spg.Meixner.Pos.Aquarium.Angular
 
             app.UseRouting();
 
+            app.SetupDatabases();
+
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
@@ -93,6 +96,27 @@ namespace Spg.Meixner.Pos.Aquarium.Angular
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+    }
+
+    public static class StartupExtensions
+    {
+        public static void SetupDatabases(this IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var aquariumContext = scope.ServiceProvider.GetRequiredService<AquariumContext>();
+                if (aquariumContext is null)
+                    throw new Exception("Wiring up of AquariumContext did not work properly.");
+
+                aquariumContext.Database.EnsureCreated();
+
+                var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                if (applicationDbContext is null)
+                    throw new Exception("Wiring up of ApplicationDbContext did not work properly.");
+
+                applicationDbContext.Database.EnsureCreated();
+            }
         }
     }
 }
