@@ -42,14 +42,14 @@ enum Rank {
     Fish
 }
 
-Species *-- Rank : is of rank
-Organism *-- Species : part of
-Organism *-- Region
-Organism *-up-* Organism : beneficial
-Organism *-right-* Organism : malevolent
-Organism *--* Tank : is in
-Organism *--* Prerequisites : needs
-Organism *--* Food : eats
-Tank *-- Area : situated in
+Species     *--      Rank               : is of rank
+Organism    *--      Species            : part of
+Organism    *--      Region         
+Organism    *--*     Organism           : beneficial
+Organism    *--*     Organism           : malevolent
+Organism    *--*     Tank               : lives in
+Organism    *--*     Prerequisites      : needs
+Organism    *--*     Food               : eats
+Tank        *--      Area               : situated in
 
 @enduml
