@@ -6,9 +6,9 @@ namespace Spg.Meixner.Pos.Aquarium.Angular.Models
     public class Food
     {
         public Guid Id { get; init; }
-        public string Name { get; init; }
-        public bool IsLive { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public bool IsLive { get; init; } = false;
 
-        public IEnumerable<Organism> Predators;
+        public IEnumerable<Organism> Predators = new List<Organism>();
     }
 }
